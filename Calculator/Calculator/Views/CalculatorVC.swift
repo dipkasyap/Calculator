@@ -113,12 +113,10 @@ class CalculatorVC: UIViewController {
     }
     
     @IBAction func percent(_ sender: CalculatorButton) {
-        if viewModel.operation != .percent {
-            calculateResult()
+        
+        viewModel.percent { [unowned self] in
+            self.commonUpdateOnUI()
         }
-        viewModel.state = .operating
-        viewModel.operation = .percent
-        calculateResult()
         sender.glow()
     }
     
@@ -128,45 +126,34 @@ class CalculatorVC: UIViewController {
     }
     
     @IBAction func add(_ sender: CalculatorButton) {
-        if viewModel.operation != .none {
-            calculateResult()
+        viewModel.add { [unowned self] in
+            self.commonUpdateOnUI()
         }
-        viewModel.state = .operating
-        viewModel.operation = .addiction
         sender.selectOperation(true)
         sender.glow()
     }
     
     @IBAction func subtract(_ sender: CalculatorButton) {
-        if viewModel.operation != .none {
-            calculateResult()
+        viewModel.subtract { [unowned self] in
+            self.commonUpdateOnUI()
         }
-        viewModel.state = .operating
-        viewModel.operation = .subtraction
         sender.selectOperation(true)
         sender.glow()
     }
     
     @IBAction func multiply(_ sender: CalculatorButton) {
-        if viewModel.operation != .none {
-            calculateResult()
+        viewModel.multiply { [unowned self] in
+            self.commonUpdateOnUI()
         }
-        viewModel.state = .operating
-        viewModel.operation = .multiplication
         sender.selectOperation(true)
         sender.glow()
     }
     
     @IBAction func devide(_ sender: CalculatorButton) {
-        
-        if viewModel.operation != .none {
-            calculateResult()
+        viewModel.devide { [unowned self] in
+            self.commonUpdateOnUI()
         }
-        
-        viewModel.state = .operating
-        viewModel.operation = .division
         sender.selectOperation(true)
-        
         sender.glow()
     }
     
@@ -192,7 +179,7 @@ class CalculatorVC: UIViewController {
         buttonAC.setTitle("C", for: .normal)
         
         var currentTemp = formatToCalculateTotal.string(from: NSNumber(value: viewModel.temp))!
-      
+        
         if viewModel.state == .ideal && currentTemp.count >= AppConstants.maxLength {
             return
         }
@@ -225,12 +212,17 @@ class CalculatorVC: UIViewController {
     
     private func reset() {
         viewModel.reset { [unowned self] in
-            self.buttonAC.setTitle(viewModel.acButtonText, for: .normal)
-            self.resultLabel.text = viewModel.resultText
+            self.commonUpdateOnUI()
         }
     }
     
-
+    
+    func commonUpdateOnUI() {
+        self.buttonAC.setTitle(viewModel.acButtonText, for: .normal)
+        self.resultLabel.text = viewModel.resultText
+    }
+    
+    
     private func calculateResult() {
         switch viewModel.operation {
         case .addiction:
@@ -264,6 +256,7 @@ class CalculatorVC: UIViewController {
         viewModel.operation = .none
         
         selectVisualOperation()
+        
         UserDefaults.standard.set(viewModel.total, forKey: AppConstants.total)
         
         print("Calculation result is : \(viewModel.total)")
