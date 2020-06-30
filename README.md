@@ -2,7 +2,7 @@
 
 
 A calculator app project for iOS Devices:
-* This app provides minium calculation operations as following:
+* This app provides minimum calculation operations as following:
 • addition
 • subtraction
 • multiplication
