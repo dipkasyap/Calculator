@@ -10,6 +10,7 @@ import UIKit
 
 class CalculatorVC: UIViewController {
     
+    @IBOutlet var operatorButtons: [CalculatorOperatorButton]!
     //result label
     @IBOutlet weak var resultLabel: UILabel!
     
@@ -84,13 +85,53 @@ class CalculatorVC: UIViewController {
         setupUI()
     }
     
-    //MARK:- UI Setup
+}
+
+//MARK:- UI Setup
+extension CalculatorVC {
+    
     private func setupUI() {
         buttonDecimal.setTitle(AppConstants.decimalSeparator, for: .normal)
         view.backgroundColor = AppConstants.Color.eerieBlack
     }
+    func commonUpdateOnUI() {
+        self.buttonAC.setTitle(viewModel.acButtonText, for: .normal)
+        self.resultLabel.text = viewModel.resultText
+    }
     
-    // MARK: -Actions
+    private func updateOperatorButtonsAppearance() {
+        
+        operatorButtons.forEach{$0.activate(false)}
+        
+        switch viewModel.state {
+        case .operating:
+            switch viewModel.operation {
+            case .addition:
+                buttonAdd.activate(true)
+                break
+            case .subtraction:
+                buttonSubtract.activate(true)
+                break
+            case .multiplication:
+                buttonMultiply.activate(true)
+                break
+            case .division:
+                buttonDivide.activate(true)
+                break
+            default:
+                break
+            }
+            break
+            
+        case .ideal:
+            operatorButtons.forEach{$0.activate(false)}
+            break
+        }
+    }
+}
+
+// MARK: -Actions
+extension CalculatorVC {
     @IBAction func ac(_ sender: CalculatorButton) {
         reset()
     }
@@ -142,23 +183,10 @@ class CalculatorVC: UIViewController {
     }
     
     @IBAction func decimal(_ sender: CalculatorOperandButton) {
-        
         viewModel.decimal { [unowned self] in
             self.commonUpdateOnUI()
             self.updateOperatorButtonsAppearance()
         }
-        
-        
-//        let currentTemp = formatToCalculateTotal.string(from: NSNumber(value: viewModel.temp))!
-//        if resultLabel.text?.contains(AppConstants.decimalSeparator) ?? false || (viewModel.state == .ideal && currentTemp.count >= AppConstants.maxLength) {
-//            return
-//        }
-//
-//        resultLabel.text = resultLabel.text! + AppConstants.decimalSeparator
-//        viewModel.decimal = true
-//
-//        updateOperatorButtonsAppearance()
-        
     }
     
     @IBAction func numberAction(_ sender: CalculatorOperandButton) {
@@ -169,105 +197,11 @@ class CalculatorVC: UIViewController {
         }
     }
     
-    
     private func reset() {
         viewModel.reset { [unowned self] in
             self.commonUpdateOnUI()
+            self.updateOperatorButtonsAppearance()
         }
     }
-    
-    
-    func commonUpdateOnUI() {
-        self.buttonAC.setTitle(viewModel.acButtonText, for: .normal)
-        self.resultLabel.text = viewModel.resultText
-    }
-    
-    
-    private func calculateResult() {
-        switch viewModel.operation {
-        case .addiction:
-            viewModel.result = viewModel.result + viewModel.temp
-            break
-        case .subtraction:
-            viewModel.result = viewModel.result - viewModel.temp
-            break
-        case .multiplication:
-            viewModel.result = viewModel.result * viewModel.temp
-            break
-        case .division:
-            viewModel.result = viewModel.result / viewModel.temp
-            break
-        case .percent:
-            viewModel.temp = viewModel.temp / 100
-            viewModel.result = viewModel.temp
-            break
-        case .none:
-            break
-        }
-        
-        //formating
-        if let currentTotal = formatToCalculateTotal.string(from: NSNumber(value: viewModel.result)), currentTotal.count > AppConstants.maxLength {
-            resultLabel.text = formatToDisplayScientific.string(from: NSNumber(value: viewModel.result))
-        } else {
-            resultLabel.text = formatToDisplay.string(from: NSNumber(value: viewModel.result))
-        }
-        
-        //reset operation
-        viewModel.operation = .none
-        
-        updateOperatorButtonsAppearance()
-        
-        print("Calculation result is : \(viewModel.result)")
-    }
-    
-    // update UI State
-    private func updateOperatorButtonsAppearance() {
-        
-        switch viewModel.state {
-        case .operating:
-            switch viewModel.operation {
-            case .none, .percent:
-                buttonAdd.activate(false)
-                buttonSubtract.activate(false)
-                buttonMultiply.activate(false)
-                buttonDivide.activate(false)
-                break
-            case .addiction:
-                buttonAdd.activate(true)
-                buttonSubtract.activate(false)
-                buttonMultiply.activate(false)
-                buttonDivide.activate(false)
-                break
-            case .subtraction:
-                buttonAdd.activate(false)
-                buttonSubtract.activate(true)
-                buttonMultiply.activate(false)
-                buttonDivide.activate(false)
-                break
-            case .multiplication:
-                buttonAdd.activate(false)
-                buttonSubtract.activate(false)
-                buttonMultiply.activate(true)
-                buttonDivide.activate(false)
-                break
-            case .division:
-                buttonAdd.activate(false)
-                buttonSubtract.activate(false)
-                buttonMultiply.activate(false)
-                buttonDivide.activate(true)
-                break
-            }
-            break
-            
-        case .ideal:
-            buttonAdd.activate(false)
-            buttonSubtract.activate(false)
-            buttonMultiply.activate(false)
-            buttonDivide.activate(false)
-            break
-        }
-    }
-    
-    
 }
 

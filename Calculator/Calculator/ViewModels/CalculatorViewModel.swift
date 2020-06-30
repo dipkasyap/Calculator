@@ -9,7 +9,7 @@
 import Foundation
 
 enum Operation {
-    case none, addiction, subtraction, multiplication, division, percent
+    case none, addition, subtraction, multiplication, division, percentage
 }
 
 enum OperationState {
@@ -64,7 +64,7 @@ class CalculatorViewModel {
             }
         }
         state = .operating
-        operation = .addiction
+        operation = .addition
     }
     
     func subtract(_ then: ()->()) {
@@ -98,13 +98,13 @@ class CalculatorViewModel {
     }
     
     func percent(_ then: ()->()) {
-        if operation != .percent {
+        if operation != .percentage {
             calculateResult {
                 then()
             }
         }
         state = .operating
-        operation = .percent
+        operation = .percentage
         calculateResult {
             then()
         }
@@ -176,7 +176,7 @@ class CalculatorViewModel {
     
     private func calculateResult(_ then: ()->()) {
         switch operation {
-        case .addiction:
+        case .addition:
             result = result + temp
             break
         case .subtraction:
@@ -188,7 +188,7 @@ class CalculatorViewModel {
         case .division:
             result = result / temp
             break
-        case .percent:
+        case .percentage:
             temp = temp / 100
             result = temp
             break

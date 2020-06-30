@@ -326,6 +326,10 @@
                         <outlet property="buttonTwo" destination="ixb-wR-hKo" id="4t5-Zn-Hy0"/>
                         <outlet property="buttonZero" destination="SEV-hr-BfI" id="QTz-vn-fEf"/>
                         <outlet property="resultLabel" destination="vxU-PS-wQ1" id="vbX-ok-NnW"/>
+                        <outletCollection property="operatorButtons" destination="q6R-WR-L2Y" collectionClass="NSMutableArray" id="lHe-85-NkK"/>
+                        <outletCollection property="operatorButtons" destination="Ean-b7-Adu" collectionClass="NSMutableArray" id="MQ4-1n-p5s"/>
+                        <outletCollection property="operatorButtons" destination="6jg-uw-psq" collectionClass="NSMutableArray" id="WjF-FO-ggZ"/>
+                        <outletCollection property="operatorButtons" destination="62C-IL-70w" collectionClass="NSMutableArray" id="omx-l9-5xm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
