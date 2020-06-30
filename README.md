@@ -4,10 +4,10 @@
 
 A calculator app project for iOS Devices:
 * This app provides minimum calculation operations as following:
-• addition
-• subtraction
-• multiplication
-• division
+- addition
+- subtraction
+- multiplication
+- division
 
 ## Requirements:
 * iOS 13.0+
@@ -26,3 +26,7 @@ A calculator app project for iOS Devices:
  - **`COCOAPODS`** - [COCOAPODS](https://cocoapods.org) is a dependency manager for Swift and Objective-C Cocoa projects.
  - **`Quick`** - [Quick/Quick](https://github.com/Quick/Quick) is testing framework in swift
  - **`Nimble`** - [Quick/Nimble](https://github.com/Quick/Nimble) is Matcher Framework for Swift to pair with Quick
+
+## Limitations/TODO
+- Sequential calculation is not supporte. 
+- Clearing last entered mumber in the middle of calculation is not supported. 
