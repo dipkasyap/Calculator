@@ -27,7 +27,7 @@ struct AppConstants {
             return #colorLiteral(red: 0.8313056827, green: 0.83156991, blue: 0.8231052756, alpha: 1)
         }
         static var eerieBlack: UIColor {
-            return #colorLiteral(red: 0.1097869948, green: 0.1098136529, blue: 0.1097853258, alpha: 1)
+            return #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         }
         static var darkLiver: UIColor {
             return #colorLiteral(red: 0.3136876225, green: 0.313747257, blue: 0.3136838675, alpha: 1)
