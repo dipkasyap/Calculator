@@ -1,5 +1,6 @@
 # Calculator
-
+![Alt text](/sample1.png)
+![Alt text](/sample2.png)
 
 A calculator app project for iOS Devices:
 * This app provides minimum calculation operations as following:
