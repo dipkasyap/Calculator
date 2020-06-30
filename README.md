@@ -21,3 +21,8 @@ A calculator app project for iOS Devices:
 - Clean `/DerivedData` folder if any and build the project in Xcode
 - Run the pod install `pod install`
 - Then clean and build the project in Xcode
+
+## 3rd Party Libraries
+ - **`COCOAPODS`** - [COCOAPODS](https://cocoapods.org) is a dependency manager for Swift and Objective-C Cocoa projects.
+ - **`Quick`** - [Quick/Quick](https://github.com/Quick/Quick) is testing framework in swift
+ - **`Nimble`** - [Quick/Nimble](https://github.com/Quick/Nimble) is Matcher Framework for Swift to pair with Quick
