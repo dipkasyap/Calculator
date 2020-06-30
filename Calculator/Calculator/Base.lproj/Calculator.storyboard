@@ -29,7 +29,7 @@
                                                     <color key="titleColor" red="0.12984204290000001" green="0.12984612579999999" blue="0.12984395030000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="ac:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YaC-zk-NqI"/>
+                                                    <action selector="didTapAC:" destination="BYZ-38-t0r" eventType="touchUpInside" id="13h-RO-Zae"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PaG-Tv-9u8" customClass="CalculatorButton" customModule="Calculator" customModuleProvider="target">
@@ -40,7 +40,7 @@
                                                     <color key="titleColor" red="0.12984204290000001" green="0.12984612579999999" blue="0.12984395030000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="plusMinus:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lRj-e4-4ty"/>
+                                                    <action selector="didTapPlusMinus:" destination="BYZ-38-t0r" eventType="touchUpInside" id="IHc-p8-jxO"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bJy-8C-yzw" customClass="CalculatorButton" customModule="Calculator" customModuleProvider="target">
@@ -51,7 +51,7 @@
                                                     <color key="titleColor" red="0.12984204290000001" green="0.12984612579999999" blue="0.12984395030000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="percent:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nv2-bK-Hke"/>
+                                                    <action selector="didTapPercent:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4TO-np-2Vi"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q6R-WR-L2Y" customClass="CalculatorOperatorButton" customModule="Calculator" customModuleProvider="target">
@@ -62,7 +62,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="devide:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KN2-3t-LP5"/>
+                                                    <action selector="didTapDivide:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KN2-3t-LP5"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -78,7 +78,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="numberAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="J9W-Uo-J4f"/>
+                                                    <action selector="didTapNumber:" destination="BYZ-38-t0r" eventType="touchUpInside" id="J9W-Uo-J4f"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Opl-d5-WhV" customClass="CalculatorOperandButton" customModule="Calculator" customModuleProvider="target">
@@ -89,7 +89,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="numberAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rbN-Pd-xNm"/>
+                                                    <action selector="didTapNumber:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rbN-Pd-xNm"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uin-Dy-kaZ" customClass="CalculatorOperandButton" customModule="Calculator" customModuleProvider="target">
@@ -100,7 +100,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="numberAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uOS-aY-Oab"/>
+                                                    <action selector="didTapNumber:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uOS-aY-Oab"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ean-b7-Adu" customClass="CalculatorOperatorButton" customModule="Calculator" customModuleProvider="target">
@@ -111,7 +111,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="multiply:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PU5-DE-gae"/>
+                                                    <action selector="didTapMultiply:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PU5-DE-gae"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -127,7 +127,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="numberAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mOb-Bp-oQd"/>
+                                                    <action selector="didTapNumber:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mOb-Bp-oQd"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PPr-Qr-OAk" customClass="CalculatorOperandButton" customModule="Calculator" customModuleProvider="target">
@@ -138,7 +138,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="numberAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="adf-he-3km"/>
+                                                    <action selector="didTapNumber:" destination="BYZ-38-t0r" eventType="touchUpInside" id="adf-he-3km"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X78-Tj-RHH" customClass="CalculatorOperandButton" customModule="Calculator" customModuleProvider="target">
@@ -149,7 +149,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="numberAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YQp-At-I6K"/>
+                                                    <action selector="didTapNumber:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YQp-At-I6K"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6jg-uw-psq" customClass="CalculatorOperatorButton" customModule="Calculator" customModuleProvider="target">
@@ -160,7 +160,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="subtract:" destination="BYZ-38-t0r" eventType="touchUpInside" id="55x-IO-Cox"/>
+                                                    <action selector="didTapSubtract:" destination="BYZ-38-t0r" eventType="touchUpInside" id="55x-IO-Cox"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -176,7 +176,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="numberAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0xI-gU-eWV"/>
+                                                    <action selector="didTapNumber:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0xI-gU-eWV"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ixb-wR-hKo" customClass="CalculatorOperandButton" customModule="Calculator" customModuleProvider="target">
@@ -187,7 +187,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="numberAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="h6e-tz-Z4j"/>
+                                                    <action selector="didTapNumber:" destination="BYZ-38-t0r" eventType="touchUpInside" id="h6e-tz-Z4j"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J3L-rE-Cs7" customClass="CalculatorOperandButton" customModule="Calculator" customModuleProvider="target">
@@ -198,7 +198,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="numberAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EcX-m7-wGK"/>
+                                                    <action selector="didTapNumber:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EcX-m7-wGK"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="62C-IL-70w" customClass="CalculatorOperatorButton" customModule="Calculator" customModuleProvider="target">
@@ -209,7 +209,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="add:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Pj1-T1-43U"/>
+                                                    <action selector="didTapAdd:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Pj1-T1-43U"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -228,7 +228,7 @@
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <connections>
-                                                            <action selector="numberAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gyK-GV-Wbk"/>
+                                                            <action selector="didTapNumber:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gyK-GV-Wbk"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -244,7 +244,7 @@
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <connections>
-                                                            <action selector="decimal:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jza-02-Ruq"/>
+                                                            <action selector="didTapDecimalWithButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PCK-ky-GOm"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bHg-wD-xDG" customClass="CalculatorOperatorButton" customModule="Calculator" customModuleProvider="target">
@@ -255,7 +255,7 @@
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <connections>
-                                                            <action selector="result:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vbK-rk-l7k"/>
+                                                            <action selector="didTapResult:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vbK-rk-l7k"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>

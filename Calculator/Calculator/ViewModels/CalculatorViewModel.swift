@@ -9,7 +9,7 @@
 import Foundation
 
 enum Operation {
-    case none, addition, subtraction, multiplication, division, percentage
+    case none, addition, subtraction, multiplication, division, percentage    
 }
 
 enum OperationState {
@@ -202,15 +202,12 @@ class CalculatorViewModel {
         } else {
             resultText = formatToDisplay.string(from: NSNumber(value: result))!
         }
-        
-        //reset operation needs inspection
-        //operation = .none
-        
+
         print("Calculation result is : \(result)")
         
-        //update view
-        //selectVisualOperation()
-        
+        //reset temp
+        temp = 0
+                
         then()
         
     }

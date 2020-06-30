@@ -132,73 +132,69 @@ extension CalculatorVC {
 
 // MARK: -Actions
 extension CalculatorVC {
-    @IBAction func ac(_ sender: CalculatorButton) {
-        reset()
+    @IBAction func didTapAC(_ button: CalculatorButton) {
+        viewModel.reset { [unowned self] in
+            self.commonUpdateOnUI()
+            self.updateOperatorButtonsAppearance()
+        }
     }
     
-    @IBAction func plusMinus(_ sender: CalculatorButton) {
+    @IBAction func didTapPlusMinus(_ button: CalculatorButton) {
         viewModel.plusMinus { [unowned self] in
             self.commonUpdateOnUI()
         }
     }
     
-    @IBAction func percent(_ sender: CalculatorButton) {
+    @IBAction func didTapPercent(_ button: CalculatorButton) {
         viewModel.percent { [unowned self] in
             self.commonUpdateOnUI()
         }
     }
     
-    @IBAction func result(_ sender: CalculatorOperatorButton) {
+    @IBAction func didTapResult(_ button: CalculatorOperatorButton) {
         viewModel.calculate {
             self.commonUpdateOnUI()
         }
     }
     
-    @IBAction func add(_ sender: CalculatorOperatorButton) {
+    @IBAction func didTapAdd(_ button: CalculatorOperatorButton) {
         viewModel.add { [unowned self] in
             self.commonUpdateOnUI()
         }
-        sender.activate(true)
+        //button.activate(true)
     }
     
-    @IBAction func subtract(_ sender: CalculatorOperatorButton) {
+    @IBAction func didTapSubtract(_ button: CalculatorOperatorButton) {
         viewModel.subtract { [unowned self] in
             self.commonUpdateOnUI()
         }
-        sender.activate(true)
+        //button.activate(true)
     }
     
-    @IBAction func multiply(_ sender: CalculatorOperatorButton) {
+    @IBAction func didTapMultiply(_ button: CalculatorOperatorButton) {
         viewModel.multiply { [unowned self] in
             self.commonUpdateOnUI()
         }
-        sender.activate(true)
+        //button.activate(true)
     }
     
-    @IBAction func devide(_ sender: CalculatorOperatorButton) {
+    @IBAction func didTapDivide(_ button: CalculatorOperatorButton) {
         viewModel.devide { [unowned self] in
             self.commonUpdateOnUI()
         }
-        sender.activate(true)
+        //button.activate(true)
     }
     
-    @IBAction func decimal(_ sender: CalculatorOperandButton) {
+    @IBAction func didTapDecimal(button: CalculatorButton) {
         viewModel.decimal { [unowned self] in
             self.commonUpdateOnUI()
             self.updateOperatorButtonsAppearance()
         }
     }
     
-    @IBAction func numberAction(_ sender: CalculatorOperandButton) {
-        guard let tag = NumberTag(rawValue: sender.tag) else {fatalError("Number button should have associated tag to identify number")}
+    @IBAction func didTapNumber(_ button: CalculatorOperandButton) {
+        guard let tag = NumberTag(rawValue: button.tag) else {fatalError("Number button should have associated tag to identify number")}
         viewModel.didPressedNumberWithTag(tag) { [unowned self] in
-            self.commonUpdateOnUI()
-            self.updateOperatorButtonsAppearance()
-        }
-    }
-    
-    private func reset() {
-        viewModel.reset { [unowned self] in
             self.commonUpdateOnUI()
             self.updateOperatorButtonsAppearance()
         }
