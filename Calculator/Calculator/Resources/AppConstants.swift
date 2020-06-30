@@ -19,19 +19,22 @@ struct AppConstants {
         return  9
     }
     
-    static var total: String {
-        return "TOTAL"
-    }
-    
-    
     struct Color {
-        static var orange: UIColor {
-            return #colorLiteral(red: 0.7254902124, green: 0.4784313738, blue: 0.09803921729, alpha: 1)
-        }
         static var white: UIColor {
             return #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         }
-                
+        static var lightGray: UIColor {
+            return #colorLiteral(red: 0.8313056827, green: 0.83156991, blue: 0.8231052756, alpha: 1)
+        }
+        static var eerieBlack: UIColor {
+            return #colorLiteral(red: 0.1097869948, green: 0.1098136529, blue: 0.1097853258, alpha: 1)
+        }
+        static var darkLiver: UIColor {
+            return #colorLiteral(red: 0.3136876225, green: 0.313747257, blue: 0.3136838675, alpha: 1)
+        }
+        static var vividGamboge: UIColor {
+            return #colorLiteral(red: 1, green: 0.5825584531, blue: 0, alpha: 1)
+        }
     }
 }
 

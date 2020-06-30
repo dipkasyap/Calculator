@@ -17,7 +17,7 @@ enum OperationState {
 }
 
 class CalculatorViewModel {
-    var total: Double = 0
+    var result: Double = 0
     var temp: Double = 0
     var state: OperationState = .ideal
     var decimal = false
@@ -27,11 +27,17 @@ class CalculatorViewModel {
     var acButtonText =  "AC"
     
     func reset(_ then: ()->()) {
-        total = 0
+        result = 0
         operation = .none
         acButtonText =  "AC"
         temp = 0
         resultText = "0"
+        then()
+    }
+    
+    func plusMinus(_ then: ()->()) {
+        temp = temp * (-1)
+        resultText = formatToDisplay.string(from: NSNumber(value: temp))!
         then()
     }
     
@@ -66,68 +72,93 @@ class CalculatorViewModel {
     }
     
     func devide(_ then: ()->()) {
-           
-           if operation != .none {
-               calculateResult {
-                   then()
-               }
+        if operation != .none {
+            calculateResult {
+                then()
+            }
         }
-           state = .operating
-           operation = .division
-       }
+        state = .operating
+        operation = .division
+    }
     
     func percent(_ then: ()->()) {
-           if operation != .percent {
-               calculateResult {
-                   then()
-               }
-           }
-           state = .operating
-           operation = .percent
-           calculateResult {
-               then()
-           }
-       }
+        if operation != .percent {
+            calculateResult {
+                then()
+            }
+        }
+        state = .operating
+        operation = .percent
+        calculateResult {
+            then()
+        }
+    }
+    
+    func decimal(_ then: ()->()) {
+        
+        let currentTemp = formatToCalculateTotal.string(from: NSNumber(value: temp))!
+        
+        //check if decimal first and second operands both has decimal
+        if resultText.contains(AppConstants.decimalSeparator) {
+            
+        }
+        
+        if resultText.contains(AppConstants.decimalSeparator) || (state == .ideal && currentTemp.count >= AppConstants.maxLength) {
+            return
+        }
+        
+        resultText = currentTemp + AppConstants.decimalSeparator
+        decimal = true
+        
+        then()
+    }
+    
+    func calculate(_  then: ()->()) {
+        calculateResult { [unowned self] in
+            self.state = .ideal
+            self.operation = .none
+            then()
+        }
+    }
     
     private func calculateResult(_ then: ()->()) {
         switch operation {
         case .addiction:
-            total = total + temp
+            result = result + temp
             break
         case .subtraction:
-            total = total - temp
+            result = result - temp
             break
         case .multiplication:
-            total = total * temp
+            result = result * temp
             break
         case .division:
-            total = total / temp
+            result = result / temp
             break
         case .percent:
             temp = temp / 100
-            total = temp
+            result = temp
             break
         case .none:
             break
         }
         
         //formating
-        if let currentTotal = formatToCalculateTotal.string(from: NSNumber(value: total)), currentTotal.count > AppConstants.maxLength {
-            resultText = formatToDisplayScientific.string(from: NSNumber(value: total))!
+        if let currentTotal = formatToCalculateTotal.string(from: NSNumber(value: result)), currentTotal.count > AppConstants.maxLength {
+            resultText = formatToDisplayScientific.string(from: NSNumber(value: result))!
         } else {
-            resultText = formatToDisplay.string(from: NSNumber(value: total))!
+            resultText = formatToDisplay.string(from: NSNumber(value: result))!
         }
         
-        //reset operation
-        operation = .none
+        //reset operation needs inspection
+        //operation = .none
         
-        
-        UserDefaults.standard.set(total, forKey: AppConstants.total)
-        
-        print("Calculation result is : \(total)")
+        print("Calculation result is : \(result)")
         
         //update view
         //selectVisualOperation()
+        
+        then()
         
     }
     

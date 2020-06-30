@@ -27,52 +27,52 @@ class CalculatorVC: UIViewController {
     @IBOutlet weak var resultLabel: UILabel!
     
     // Number Buttons
-    @IBOutlet weak var buttonOne: CalculatorButton! {
+    @IBOutlet weak var buttonOne: CalculatorOperandButton! {
         didSet {
             buttonOne.tag = NumberTag.one.rawValue
         }
     }
-    @IBOutlet weak var buttonTwo: CalculatorButton!{
+    @IBOutlet weak var buttonTwo: CalculatorOperandButton!{
         didSet {
             buttonTwo.tag = NumberTag.two.rawValue
         }
     }
-    @IBOutlet weak var buttonThree: CalculatorButton!{
+    @IBOutlet weak var buttonThree: CalculatorOperandButton!{
         didSet {
             buttonThree.tag = NumberTag.three.rawValue
         }
     }
-    @IBOutlet weak var buttonFour: CalculatorButton!{
+    @IBOutlet weak var buttonFour: CalculatorOperandButton!{
         didSet {
             buttonFour.tag = NumberTag.four.rawValue
         }
     }
-    @IBOutlet weak var buttonFive: CalculatorButton!{
+    @IBOutlet weak var buttonFive: CalculatorOperandButton!{
         didSet {
             buttonFive.tag = NumberTag.five.rawValue
         }
     }
-    @IBOutlet weak var buttonSix: CalculatorButton!{
+    @IBOutlet weak var buttonSix: CalculatorOperandButton!{
         didSet {
             buttonSix.tag = NumberTag.six.rawValue
         }
     }
-    @IBOutlet weak var buttonSeven: CalculatorButton!{
+    @IBOutlet weak var buttonSeven: CalculatorOperandButton!{
         didSet {
             buttonSeven.tag = NumberTag.seven.rawValue
         }
     }
-    @IBOutlet weak var buttonEight: CalculatorButton!{
+    @IBOutlet weak var buttonEight: CalculatorOperandButton!{
         didSet {
             buttonEight.tag = NumberTag.eight.rawValue
         }
     }
-    @IBOutlet weak var buttonNine: CalculatorButton!{
+    @IBOutlet weak var buttonNine: CalculatorOperandButton!{
         didSet {
             buttonNine.tag = NumberTag.nine.rawValue
         }
     }
-    @IBOutlet weak var buttonZero: CalculatorButton!{
+    @IBOutlet weak var buttonZero: CalculatorOperandButton!{
         didSet {
             buttonZero.tag = NumberTag.zero.rawValue
         }
@@ -83,93 +83,95 @@ class CalculatorVC: UIViewController {
     @IBOutlet weak var buttonAC: CalculatorButton!
     @IBOutlet weak var buttonPlusMinus: CalculatorButton!
     @IBOutlet weak var buttonPercent: CalculatorButton!
-    @IBOutlet weak var buttonResult: CalculatorButton!
-    @IBOutlet weak var buttonAdd: CalculatorButton!
-    @IBOutlet weak var buttonSubtract: CalculatorButton!
-    @IBOutlet weak var buttonMultiply: CalculatorButton!
-    @IBOutlet weak var buttonDivide: CalculatorButton!
+    @IBOutlet weak var buttonResult: CalculatorOperatorButton!
+    @IBOutlet weak var buttonAdd: CalculatorOperatorButton!
+    @IBOutlet weak var buttonSubtract: CalculatorOperatorButton!
+    @IBOutlet weak var buttonMultiply: CalculatorOperatorButton!
+    @IBOutlet weak var buttonDivide: CalculatorOperatorButton!
     
     var viewModel = CalculatorViewModel()
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setupUI()
+    }
+    
+    //MARK:- UI Setup
+    private func setupUI() {
         buttonDecimal.setTitle(AppConstants.decimalSeparator, for: .normal)
-        viewModel.total = UserDefaults.standard.double(forKey: AppConstants.total)
-        calculateResult()
+        view.backgroundColor = AppConstants.Color.eerieBlack
     }
     
     // MARK: -Actions
     @IBAction func ac(_ sender: CalculatorButton) {
         reset()
-        sender.glow()
     }
     
     @IBAction func plusMinus(_ sender: CalculatorButton) {
-        viewModel.temp = viewModel.temp * (-1)
-        resultLabel.text = formatToDisplay.string(from: NSNumber(value: viewModel.temp))
-        sender.glow()
+        viewModel.plusMinus { [unowned self] in
+            self.commonUpdateOnUI()
+        }
     }
     
     @IBAction func percent(_ sender: CalculatorButton) {
-        
         viewModel.percent { [unowned self] in
             self.commonUpdateOnUI()
         }
-        sender.glow()
     }
     
     @IBAction func result(_ sender: CalculatorButton) {
-        calculateResult()
-        sender.glow()
+        viewModel.calculate {
+            self.commonUpdateOnUI()
+        }
     }
     
     @IBAction func add(_ sender: CalculatorButton) {
         viewModel.add { [unowned self] in
             self.commonUpdateOnUI()
         }
-        sender.selectOperation(true)
-        sender.glow()
+        sender.activate(true)
     }
     
     @IBAction func subtract(_ sender: CalculatorButton) {
         viewModel.subtract { [unowned self] in
             self.commonUpdateOnUI()
         }
-        sender.selectOperation(true)
-        sender.glow()
+        sender.activate(true)
     }
     
     @IBAction func multiply(_ sender: CalculatorButton) {
         viewModel.multiply { [unowned self] in
             self.commonUpdateOnUI()
         }
-        sender.selectOperation(true)
-        sender.glow()
+        sender.activate(true)
     }
     
     @IBAction func devide(_ sender: CalculatorButton) {
         viewModel.devide { [unowned self] in
             self.commonUpdateOnUI()
         }
-        sender.selectOperation(true)
-        sender.glow()
+        sender.activate(true)
     }
     
     @IBAction func decimal(_ sender: CalculatorButton) {
         
-        let currentTemp = formatToCalculateTotal.string(from: NSNumber(value: viewModel.temp))!
-        if resultLabel.text?.contains(AppConstants.decimalSeparator) ?? false || (viewModel.state == .ideal && currentTemp.count >= AppConstants.maxLength) {
-            return
+        viewModel.decimal { [unowned self] in
+            self.commonUpdateOnUI()
+            self.updateOperatorButtonsAppearance()
         }
         
-        resultLabel.text = resultLabel.text! + AppConstants.decimalSeparator
-        viewModel.decimal = true
         
-        selectVisualOperation()
+//        let currentTemp = formatToCalculateTotal.string(from: NSNumber(value: viewModel.temp))!
+//        if resultLabel.text?.contains(AppConstants.decimalSeparator) ?? false || (viewModel.state == .ideal && currentTemp.count >= AppConstants.maxLength) {
+//            return
+//        }
+//
+//        resultLabel.text = resultLabel.text! + AppConstants.decimalSeparator
+//        viewModel.decimal = true
+//
+//        updateOperatorButtonsAppearance()
         
-        sender.glow()
     }
     
     @IBAction func numberAction(_ sender: CalculatorButton) {
@@ -188,7 +190,7 @@ class CalculatorVC: UIViewController {
         
         //on operation
         if viewModel.state == .operating {
-            viewModel.total = viewModel.total == 0 ? viewModel.temp : viewModel.total
+            viewModel.result = viewModel.result == 0 ? viewModel.temp : viewModel.result
             resultLabel.text = ""
             currentTemp = ""
             viewModel.state = .ideal
@@ -204,9 +206,8 @@ class CalculatorVC: UIViewController {
         viewModel.temp = Double(currentTemp + String(number))!
         resultLabel.text = formatToDisplay.string(from: NSNumber(value: viewModel.temp))
         
-        selectVisualOperation()
+        updateOperatorButtonsAppearance()
         
-        sender.glow()
     }
     
     
@@ -226,86 +227,84 @@ class CalculatorVC: UIViewController {
     private func calculateResult() {
         switch viewModel.operation {
         case .addiction:
-            viewModel.total = viewModel.total + viewModel.temp
+            viewModel.result = viewModel.result + viewModel.temp
             break
         case .subtraction:
-            viewModel.total = viewModel.total - viewModel.temp
+            viewModel.result = viewModel.result - viewModel.temp
             break
         case .multiplication:
-            viewModel.total = viewModel.total * viewModel.temp
+            viewModel.result = viewModel.result * viewModel.temp
             break
         case .division:
-            viewModel.total = viewModel.total / viewModel.temp
+            viewModel.result = viewModel.result / viewModel.temp
             break
         case .percent:
             viewModel.temp = viewModel.temp / 100
-            viewModel.total = viewModel.temp
+            viewModel.result = viewModel.temp
             break
         case .none:
             break
         }
         
         //formating
-        if let currentTotal = formatToCalculateTotal.string(from: NSNumber(value: viewModel.total)), currentTotal.count > AppConstants.maxLength {
-            resultLabel.text = formatToDisplayScientific.string(from: NSNumber(value: viewModel.total))
+        if let currentTotal = formatToCalculateTotal.string(from: NSNumber(value: viewModel.result)), currentTotal.count > AppConstants.maxLength {
+            resultLabel.text = formatToDisplayScientific.string(from: NSNumber(value: viewModel.result))
         } else {
-            resultLabel.text = formatToDisplay.string(from: NSNumber(value: viewModel.total))
+            resultLabel.text = formatToDisplay.string(from: NSNumber(value: viewModel.result))
         }
         
         //reset operation
         viewModel.operation = .none
         
-        selectVisualOperation()
+        updateOperatorButtonsAppearance()
         
-        UserDefaults.standard.set(viewModel.total, forKey: AppConstants.total)
-        
-        print("Calculation result is : \(viewModel.total)")
+        print("Calculation result is : \(viewModel.result)")
     }
     
     // update UI State
-    private func selectVisualOperation() {
+    private func updateOperatorButtonsAppearance() {
         
         switch viewModel.state {
         case .operating:
             switch viewModel.operation {
             case .none, .percent:
-                buttonAdd.selectOperation(false)
-                buttonSubtract.selectOperation(false)
-                buttonMultiply.selectOperation(false)
-                buttonDivide.selectOperation(false)
+                buttonAdd.activate(false)
+                buttonSubtract.activate(false)
+                buttonMultiply.activate(false)
+                buttonDivide.activate(false)
                 break
             case .addiction:
-                buttonAdd.selectOperation(true)
-                buttonSubtract.selectOperation(false)
-                buttonMultiply.selectOperation(false)
-                buttonDivide.selectOperation(false)
+                buttonAdd.activate(true)
+                buttonSubtract.activate(false)
+                buttonMultiply.activate(false)
+                buttonDivide.activate(false)
                 break
             case .subtraction:
-                buttonAdd.selectOperation(false)
-                buttonSubtract.selectOperation(true)
-                buttonMultiply.selectOperation(false)
-                buttonDivide.selectOperation(false)
+                buttonAdd.activate(false)
+                buttonSubtract.activate(true)
+                buttonMultiply.activate(false)
+                buttonDivide.activate(false)
                 break
             case .multiplication:
-                buttonAdd.selectOperation(false)
-                buttonSubtract.selectOperation(false)
-                buttonMultiply.selectOperation(true)
-                buttonDivide.selectOperation(false)
+                buttonAdd.activate(false)
+                buttonSubtract.activate(false)
+                buttonMultiply.activate(true)
+                buttonDivide.activate(false)
                 break
             case .division:
-                buttonAdd.selectOperation(false)
-                buttonSubtract.selectOperation(false)
-                buttonMultiply.selectOperation(false)
-                buttonDivide.selectOperation(true)
+                buttonAdd.activate(false)
+                buttonSubtract.activate(false)
+                buttonMultiply.activate(false)
+                buttonDivide.activate(true)
                 break
             }
             break
             
         case .ideal:
-            buttonAdd.selectOperation(false)
-            buttonSubtract.selectOperation(false)
-            buttonMultiply.selectOperation(false)
-            buttonDivide.selectOperation(false)
+            buttonAdd.activate(false)
+            buttonSubtract.activate(false)
+            buttonMultiply.activate(false)
+            buttonDivide.activate(false)
             break
         }
     }

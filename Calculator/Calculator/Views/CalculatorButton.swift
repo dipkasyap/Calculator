@@ -8,6 +8,43 @@
 
 import UIKit
 
+open class CalculatorOperandButton: CalculatorButton {
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        colorSetup()
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        colorSetup()
+    }
+    
+    private func colorSetup() {
+        backgroundColor = AppConstants.Color.darkLiver
+        setTitleColor(AppConstants.Color.white, for: .normal)
+    }
+    
+}
+
+
+open class CalculatorOperatorButton: CalculatorButton {
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        colorSetup()
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        colorSetup()
+    }
+    
+    private func colorSetup() {
+        backgroundColor = AppConstants.Color.vividGamboge
+        setTitleColor(AppConstants.Color.white, for: .normal)
+    }
+    
+}
+
 
 open class CalculatorButton: UIButton {
     
@@ -25,12 +62,19 @@ open class CalculatorButton: UIButton {
     
     
     //MARK:-  setup
-    required public init?(coder aDecoder: NSCoder) {
+   required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        colorSetup()
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        colorSetup()
+    }
+    
+    private func colorSetup() {
+        backgroundColor = AppConstants.Color.lightGray
+        setTitleColor(AppConstants.Color.eerieBlack, for: .normal)
     }
     
     open override func draw(_ rect: CGRect) {
@@ -74,21 +118,10 @@ open class CalculatorButton: UIButton {
         }
     }
     
-    func glow() {
-        UIView.animate(withDuration: 0.1, animations: {
-            self.alpha = 0.5
-        }) { (completion) in
-            UIView.animate(withDuration: 0.1, animations: {
-                self.alpha = 1
-            })
-        }
-    }
-    
     //MARK: - Actions
-    
-    func selectOperation(_ selected: Bool) {
-        backgroundColor = selected ? AppConstants.Color.white : AppConstants.Color.orange
-        setTitleColor(selected ? AppConstants.Color.orange : AppConstants.Color.white, for: .normal)
+    func activate(_ active: Bool) {
+        backgroundColor = active ? AppConstants.Color.white : AppConstants.Color.vividGamboge
+        setTitleColor(active ? AppConstants.Color.vividGamboge : AppConstants.Color.white, for: .normal)
     }
     
     private var tapAction: (() -> Void)?
