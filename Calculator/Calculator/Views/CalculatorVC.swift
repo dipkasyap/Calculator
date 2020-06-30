@@ -8,19 +8,6 @@
 
 import UIKit
 
-enum NumberTag: Int {
-    case zero = 0
-    case one = 1
-    case two = 2
-    case three = 3
-    case four = 4
-    case five = 5
-    case six = 6
-    case seven = 7
-    case eight = 8
-    case nine = 9
-}
-
 class CalculatorVC: UIViewController {
     
     //result label
@@ -120,41 +107,41 @@ class CalculatorVC: UIViewController {
         }
     }
     
-    @IBAction func result(_ sender: CalculatorButton) {
+    @IBAction func result(_ sender: CalculatorOperatorButton) {
         viewModel.calculate {
             self.commonUpdateOnUI()
         }
     }
     
-    @IBAction func add(_ sender: CalculatorButton) {
+    @IBAction func add(_ sender: CalculatorOperatorButton) {
         viewModel.add { [unowned self] in
             self.commonUpdateOnUI()
         }
         sender.activate(true)
     }
     
-    @IBAction func subtract(_ sender: CalculatorButton) {
+    @IBAction func subtract(_ sender: CalculatorOperatorButton) {
         viewModel.subtract { [unowned self] in
             self.commonUpdateOnUI()
         }
         sender.activate(true)
     }
     
-    @IBAction func multiply(_ sender: CalculatorButton) {
+    @IBAction func multiply(_ sender: CalculatorOperatorButton) {
         viewModel.multiply { [unowned self] in
             self.commonUpdateOnUI()
         }
         sender.activate(true)
     }
     
-    @IBAction func devide(_ sender: CalculatorButton) {
+    @IBAction func devide(_ sender: CalculatorOperatorButton) {
         viewModel.devide { [unowned self] in
             self.commonUpdateOnUI()
         }
         sender.activate(true)
     }
     
-    @IBAction func decimal(_ sender: CalculatorButton) {
+    @IBAction func decimal(_ sender: CalculatorOperandButton) {
         
         viewModel.decimal { [unowned self] in
             self.commonUpdateOnUI()
@@ -174,40 +161,12 @@ class CalculatorVC: UIViewController {
         
     }
     
-    @IBAction func numberAction(_ sender: CalculatorButton) {
-        
-        
-        
-        buttonAC.setTitle("C", for: .normal)
-        
-        var currentTemp = formatToCalculateTotal.string(from: NSNumber(value: viewModel.temp))!
-        
-        if viewModel.state == .ideal && currentTemp.count >= AppConstants.maxLength {
-            return
+    @IBAction func numberAction(_ sender: CalculatorOperandButton) {
+        guard let tag = NumberTag(rawValue: sender.tag) else {fatalError("Number button should have associated tag to identify number")}
+        viewModel.didPressedNumberWithTag(tag) { [unowned self] in
+            self.commonUpdateOnUI()
+            self.updateOperatorButtonsAppearance()
         }
-        
-        currentTemp = formatToCalculate.string(from: NSNumber(value: viewModel.temp))!
-        
-        //on operation
-        if viewModel.state == .operating {
-            viewModel.result = viewModel.result == 0 ? viewModel.temp : viewModel.result
-            resultLabel.text = ""
-            currentTemp = ""
-            viewModel.state = .ideal
-        }
-        
-        // on decimal
-        if viewModel.decimal {
-            currentTemp = "\(currentTemp)\(AppConstants.decimalSeparator)"
-            viewModel.decimal = false
-        }
-        
-        let number = sender.tag
-        viewModel.temp = Double(currentTemp + String(number))!
-        resultLabel.text = formatToDisplay.string(from: NSNumber(value: viewModel.temp))
-        
-        updateOperatorButtonsAppearance()
-        
     }
     
     

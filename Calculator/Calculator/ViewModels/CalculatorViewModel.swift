@@ -16,13 +16,29 @@ enum OperationState {
     case operating, ideal
 }
 
+enum NumberTag: Int {
+    case zero = 0
+    case one = 1
+    case two = 2
+    case three = 3
+    case four = 4
+    case five = 5
+    case six = 6
+    case seven = 7
+    case eight = 8
+    case nine = 9
+}
+
 class CalculatorViewModel {
+    
     var result: Double = 0
+  
     var temp: Double = 0
     var state: OperationState = .ideal
-    var decimal = false
     var operation: Operation = .none
-    
+  
+    var decimal = false
+
     var resultText = "0"
     var acButtonText =  "AC"
     
@@ -112,6 +128,43 @@ class CalculatorViewModel {
         
         then()
     }
+    
+    func didPressedNumberWithTag(_ numberTag: NumberTag, then: ()->()) {
+                   
+           acButtonText = "C"
+           
+           var currentTemp = formatToCalculateTotal.string(from: NSNumber(value: temp))!
+           
+           if state == .ideal && currentTemp.count >= AppConstants.maxLength {
+               return
+           }
+           
+           currentTemp = formatToCalculate.string(from: NSNumber(value: temp))!
+           
+           //on operation
+           if state == .operating {
+               result = result == 0 ? temp : result
+               resultText = ""
+               currentTemp = ""
+               state = .ideal
+           }
+           
+           // on decimal
+           if decimal {
+               currentTemp = "\(currentTemp)\(AppConstants.decimalSeparator)"
+               decimal = false
+           }
+           
+            let number = numberTag.rawValue
+           temp = Double(currentTemp + String(number))!
+           resultText = formatToDisplay.string(from: NSNumber(value: temp))!
+           
+           //updateOperatorButtonsAppearance()
+        
+        then()
+           
+       }
+    
     
     func calculate(_  then: ()->()) {
         calculateResult { [unowned self] in
