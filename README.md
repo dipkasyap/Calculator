@@ -30,3 +30,4 @@ A calculator app project for iOS Devices:
 ## Limitations/TODO
 - Sequential calculation is not supporte. 
 - Clearing last entered mumber in the middle of calculation is not supported. 
+- Percentage calculation has not completed. 
